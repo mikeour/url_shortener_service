@@ -6,5 +6,10 @@ module.exports = {
     await mongoose.connect(uri, { useNewUrlParser: true });
 
     console.log("Connected to MongoDB");
+  },
+  teardown: async () => {
+    await mongoose.disconnect();
+
+    console.log("Disconnected from MongoDB");
   }
 };
