@@ -2,18 +2,18 @@ const dotenv = require("dotenv").config();
 const db = require("./database/").init();
 
 const express = require("express");
-const parser = require("body-parser");
+const bodyParser = require("body-parser");
 const apiRouter = require("./routes");
-const { urls } = require("./controllers/");
+const { urls } = require("./controllers");
 
 const app = express();
 
-app.use(parser.json());
-app.use(parser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/api", apiRouter);
 
 app.get("/:code", async (req, res) => {
-  const { fullUrl } = await urls.get(req.params.code);
+  const { code } = req.params;
+  const { fullUrl } = await urls.get(code);
 
   res.redirect(fullUrl);
 });
