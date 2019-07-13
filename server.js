@@ -3,13 +3,13 @@ const db = require("./database/").init();
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const apiRouter = require("./routes");
 const { urls } = require("./controllers");
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use("/api", apiRouter);
+app.use("/api", require("./routes"));
+app.use(express.static("client/dist"));
 
 app.get("/:code", async (req, res) => {
   const { code } = req.params;
