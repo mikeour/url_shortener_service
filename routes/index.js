@@ -1,11 +1,17 @@
 const router = require("express").Router();
 const { urls } = require("../controllers");
 
-router.get("/:code", async (req, res) => {
-  const { code } = req.params;
-  const { fullUrl } = await urls.get(code);
+// router.get("/:code", async (req, res) => {
+//   const { code } = req.params;
+//   const { fullUrl } = await urls.get(code);
 
-  res.redirect(fullUrl);
+//   res.redirect(fullUrl);
+// });
+
+router.get("/all", async (req, res) => {
+  const allUrls = await urls.all();
+
+  res.json(allUrls);
 });
 
 router.post("/add", async (req, res) => {

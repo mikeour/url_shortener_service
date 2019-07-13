@@ -29,6 +29,10 @@ module.exports = {
         const newURL = await URL.create({ code, fullUrl, shortenedUrl });
         return newURL;
       }
+    },
+    all: async () => {
+      const urls = await URL.find({});
+      return urls;
     }
   }
 };

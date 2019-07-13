@@ -27491,13 +27491,25 @@ var _default = function _default() {
       url = _useState2[0],
       setUrl = _useState2[1];
 
+  var _useState3 = (0, _react.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      urls = _useState4[0],
+      setUrls = _useState4[1];
+
+  (0, _react.useEffect)(function () {
+    _axios.default.get("/api/all").then(function (_ref) {
+      var results = _ref.data;
+      return setUrls(results);
+    });
+  }, []);
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
 
     _axios.default.post("/api/add", {
       fullUrl: url
-    }).then(function (_ref) {
-      var results = _ref.data;
+    }).then(function (_ref2) {
+      var results = _ref2.data;
       console.log("Heres results! ", results);
     });
   };
@@ -27506,7 +27518,7 @@ var _default = function _default() {
     setUrl(e.target.value);
   };
 
-  return _react.default.createElement("form", {
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement("form", {
     onSubmit: handleSubmit
   }, _react.default.createElement("input", {
     type: "text",
@@ -27514,7 +27526,16 @@ var _default = function _default() {
     onChange: handleChange
   }), _react.default.createElement("button", {
     type: "submit"
-  }, "Submit"));
+  }, "Submit")), urls && urls.map(function (_ref3) {
+    var fullUrl = _ref3.fullUrl,
+        code = _ref3.code;
+    return _react.default.createElement("a", {
+      href: fullUrl,
+      style: {
+        display: "block"
+      }
+    }, code);
+  }));
 };
 
 exports.default = _default;
